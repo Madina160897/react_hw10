@@ -1,0 +1,41 @@
+import { useDispatch } from "react-redux";
+import { createProductAction } from "../../actions/productsActions";
+import { FormEvent, useState } from "react";
+const AddProductForm = () => {
+  const dispatch = useDispatch();
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
+
+  const handleClick = (e: FormEvent) => {
+    e.preventDefault();
+    dispatch(createProductAction({ name, price: parseInt(price), quantity: parseInt(quantity) }));
+  };
+
+  return (
+    <div >
+      <form className="block-add" onSubmit={handleClick}>
+        <input
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+       
+        <input
+          placeholder="Quantity"
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+        />
+        <input
+          placeholder="Price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+        <button>Add</button>
+      </form>
+    </div>
+  );
+};
+
+export default AddProductForm;
